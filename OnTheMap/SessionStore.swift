@@ -72,4 +72,61 @@ class SessionStore {
         }
         task.resume()
     }
+    
+    func getUserData(userId: String, userInfoListener: UserInfoListener) {
+        print(userId)
+        let request = NSMutableURLRequest(url: URL(string: "https://www.udacity.com/api/users/\(userId)")!)
+        let session = URLSession.shared
+        let task = session.dataTask(with: request as URLRequest) { data, response, error in
+            if error != nil { // Handle error...
+                userInfoListener.onError()
+                return
+            }
+            let range = Range(uncheckedBounds: (5, data!.count))
+            let newData = data?.subdata(in: range) /* subset response data! */
+            let json = try? JSONSerialization.jsonObject(with: newData!, options: [])
+            
+            let userData: UserData?
+            do {
+                userData = try UserData.init(jsonValue: json)
+                DispatchQueue.main.async {
+                    userInfoListener.onSuccess(userData: userData!)
+                }
+            } catch {
+                userData = nil
+                DispatchQueue.main.async {
+                    userInfoListener.onError()
+                }
+            }
+            
+        }
+        task.resume()
+    }
+    
+    func submitUserInfo(submitUserInfoListener: SubmitUserInfoListener, key: String, firstName: String, lastName: String, mapString: String, mediaURL: String, latitude: Double, longitude: Double) {
+        let body: String = "{\"uniqueKey\": \"\(key)\", \"firstName\": \"\(firstName)\", \"lastName\": \"\(lastName)\",\"mapString\": \"\(mapString)\", \"mediaURL\": \"\(mediaURL)\",\"latitude\": \(latitude), \"longitude\": \(longitude)}"
+        print(body)
+        
+        let request = NSMutableURLRequest(url: URL(string: "https://parse.udacity.com/parse/classes/StudentLocation")!)
+        request.httpMethod = "POST"
+        request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
+        request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = body.data(using: String.Encoding.utf8)
+        let session = URLSession.shared
+        let task = session.dataTask(with: request as URLRequest) { data, response, error in
+            if error != nil { // Handle error…
+                DispatchQueue.main.async {
+                    submitUserInfoListener.onError()
+                }
+                return
+            }
+            print(NSString(data: data!, encoding: String.Encoding.utf8.rawValue)!)
+            DispatchQueue.main.async {
+                submitUserInfoListener.onSuccess()
+            }
+        }
+        task.resume()
+    }
+    
 }

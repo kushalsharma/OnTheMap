@@ -10,19 +10,24 @@ import Foundation
 import UIKit
 import MapKit
 
-class LocateOnMapController: UIViewController, MKMapViewDelegate {
+class LocateOnMapController: UIViewController, MKMapViewDelegate, SubmitUserInfoListener {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var submitClicked: UIButton!
     var latitude: Double? = nil
     var longitude: Double? = nil
     
+    var alertView: UIViewController!
+    
     var enteredLocation: String?
+    var firstName: String?
+    var lastName: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
         createGeoLocationFromAddress(enteredLocation!, mapView: mapView)
+        alertView = getLoadingAlert()
     }
     
     func createGeoLocationFromAddress(_ address: String, mapView: MKMapView) {
@@ -43,6 +48,7 @@ class LocateOnMapController: UIViewController, MKMapViewDelegate {
                 }
             } else {
                 // Handle error
+                self.showAlert(title: "Error",message: "Something went wrong", actionTitle: "Okay")
             }
         }
         
@@ -66,6 +72,41 @@ class LocateOnMapController: UIViewController, MKMapViewDelegate {
     }
     
     @IBAction func cancelButtonClicked(_ sender: UIBarButtonItem) {
-            dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func submitButtonClicked(_ sender: Any) {
+        present(alertView, animated: true, completion: nil)
+        SessionStore.sharedInstace.submitUserInfo(submitUserInfoListener: self, key: (SessionStore.sharedInstace.sessionInfo?.account.key)!, firstName: firstName!, lastName: lastName!, mapString: enteredLocation!, mediaURL: textView.text, latitude: latitude!, longitude: longitude!)
+        
+    }
+    
+    func onSuccess() {
+        alertView.dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func onError() {
+        alertView.dismiss(animated: true, completion: nil)
+        showAlert(title: "Error",message: "Something went wrong", actionTitle: "Okay")
+    }
+    
+    func showAlert(title: String, message: String, actionTitle: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: actionTitle, style: .default) { action in
+            // perhaps use action.title here
+        })
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func getLoadingAlert() -> UIViewController {
+        let alert = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .alert)
+        alert.view.tintColor = UIColor.black
+        let loadingIndicator: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50,height: 50)) as UIActivityIndicatorView
+        loadingIndicator.hidesWhenStopped = true
+        loadingIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+        loadingIndicator.startAnimating();
+        alert.view.addSubview(loadingIndicator)
+        return alert
     }
 }

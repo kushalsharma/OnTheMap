@@ -32,3 +32,4 @@ struct StudentInfo {
         self.updatedAt = json["updatedAt"] as? String ?? ""
     }
 }
+
