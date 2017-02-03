@@ -9,8 +9,13 @@
 import Foundation
 
 struct SessionInfo {
-    let account: Account
-    let session: Session
+    var account: Account
+    var session: Session
+    
+    init(registered: Bool, key: String, id: String, expiration: String) {
+        self.account = Account(registered: registered, key: key)
+        self.session = Session(id: id, expiration: expiration)
+    }
     
     init?(json: [String: Any]) {
         guard let account = json["account"] as? [String: Any],

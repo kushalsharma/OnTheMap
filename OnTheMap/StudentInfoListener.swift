@@ -9,7 +9,7 @@
 import Foundation
 
 protocol StudentInfoListener {
-    func onSuccess(data: StudentInfo)
+    func onSuccess(studentInfoList: [StudentInfo])
     
     func onNetworkFailure(error: Any)
 }

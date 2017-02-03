@@ -28,6 +28,11 @@
 		4742CBAC1E41035000C965D3 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4742CBAB1E41035000C965D3 /* MapKit.framework */; };
 		4742CBAE1E4103DC00C965D3 /* MapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4742CBAD1E4103DC00C965D3 /* MapController.swift */; };
 		4742CBB01E41041E00C965D3 /* TableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4742CBAF1E41041E00C965D3 /* TableController.swift */; };
+		474932431E42FBBF0081FD7F /* CreatePostControllerKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474932421E42FBBF0081FD7F /* CreatePostControllerKeyboard.swift */; };
+		474DEBF41E41BE8800183FC9 /* StudentInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474DEBF31E41BE8800183FC9 /* StudentInfoTableViewCell.swift */; };
+		474DEBF61E41F96200183FC9 /* CreatePostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474DEBF51E41F96200183FC9 /* CreatePostController.swift */; };
+		47A739401E44CC170029CAA1 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A7393F1E44CC170029CAA1 /* UserData.swift */; };
+		47F884391E444643003E4B9C /* LocateOnMapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F884381E444643003E4B9C /* LocateOnMapController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +80,11 @@
 		4742CBAB1E41035000C965D3 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		4742CBAD1E4103DC00C965D3 /* MapController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapController.swift; sourceTree = "<group>"; };
 		4742CBAF1E41041E00C965D3 /* TableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableController.swift; sourceTree = "<group>"; };
+		474932421E42FBBF0081FD7F /* CreatePostControllerKeyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostControllerKeyboard.swift; sourceTree = "<group>"; };
+		474DEBF31E41BE8800183FC9 /* StudentInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentInfoTableViewCell.swift; sourceTree = "<group>"; };
+		474DEBF51E41F96200183FC9 /* CreatePostController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostController.swift; sourceTree = "<group>"; };
+		47A7393F1E44CC170029CAA1 /* UserData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
+		47F884381E444643003E4B9C /* LocateOnMapController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocateOnMapController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +137,7 @@
 		471A1DB61E40488D00E15DB0 /* OnTheMap */ = {
 			isa = PBXGroup;
 			children = (
+				474DEBF21E41BE5000183FC9 /* Cells */,
 				4742CB9D1E40CDCF00C965D3 /* Protocols */,
 				4742CB961E409E3A00C965D3 /* Store */,
 				4742CB951E40772600C965D3 /* Controllers */,
@@ -164,6 +175,7 @@
 				471A1DE61E40614500E15DB0 /* LoginControllerKeyboard.swift */,
 				4742CB931E40746B00C965D3 /* LoginControllerValidator.swift */,
 				4742CBA01E40D07D00C965D3 /* LoginControllerSessionInfo.swift */,
+				474932421E42FBBF0081FD7F /* CreatePostControllerKeyboard.swift */,
 			);
 			name = Extentions;
 			sourceTree = "<group>";
@@ -174,6 +186,8 @@
 				471A1DB91E40488D00E15DB0 /* LoginController.swift */,
 				4742CBAD1E4103DC00C965D3 /* MapController.swift */,
 				4742CBAF1E41041E00C965D3 /* TableController.swift */,
+				474DEBF51E41F96200183FC9 /* CreatePostController.swift */,
+				47F884381E444643003E4B9C /* LocateOnMapController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -187,6 +201,7 @@
 				4742CBA21E40D0F300C965D3 /* SessionStore.swift */,
 				4742CBA41E40FBB600C965D3 /* StudentInfoStore.swift */,
 				4742CBA61E40FCEE00C965D3 /* StudentInfo.swift */,
+				47A7393F1E44CC170029CAA1 /* UserData.swift */,
 			);
 			name = Store;
 			sourceTree = "<group>";
@@ -206,6 +221,14 @@
 				4742CBAB1E41035000C965D3 /* MapKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		474DEBF21E41BE5000183FC9 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				474DEBF31E41BE8800183FC9 /* StudentInfoTableViewCell.swift */,
+			);
+			name = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -276,6 +299,7 @@
 				TargetAttributes = {
 					471A1DB31E40488D00E15DB0 = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 295L4L9PZE;
 						ProvisioningStyle = Automatic;
 					};
 					471A1DC71E40488D00E15DB0 = {
@@ -348,8 +372,10 @@
 				4742CBB01E41041E00C965D3 /* TableController.swift in Sources */,
 				4742CBA51E40FBB600C965D3 /* StudentInfoStore.swift in Sources */,
 				4742CBA71E40FCEE00C965D3 /* StudentInfo.swift in Sources */,
+				474932431E42FBBF0081FD7F /* CreatePostControllerKeyboard.swift in Sources */,
 				4742CB941E40746B00C965D3 /* LoginControllerValidator.swift in Sources */,
 				4742CBA11E40D07D00C965D3 /* LoginControllerSessionInfo.swift in Sources */,
+				47F884391E444643003E4B9C /* LocateOnMapController.swift in Sources */,
 				471A1DBA1E40488D00E15DB0 /* LoginController.swift in Sources */,
 				4742CBAE1E4103DC00C965D3 /* MapController.swift in Sources */,
 				471A1DB81E40488D00E15DB0 /* AppDelegate.swift in Sources */,
@@ -357,6 +383,9 @@
 				4742CB981E409E6A00C965D3 /* SessionInfo.swift in Sources */,
 				471A1DE71E40614500E15DB0 /* LoginControllerKeyboard.swift in Sources */,
 				4742CB9A1E409EA400C965D3 /* Account.swift in Sources */,
+				474DEBF61E41F96200183FC9 /* CreatePostController.swift in Sources */,
+				47A739401E44CC170029CAA1 /* UserData.swift in Sources */,
+				474DEBF41E41BE8800183FC9 /* StudentInfoTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -508,7 +537,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 295L4L9PZE;
 				INFOPLIST_FILE = OnTheMap/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = xyz.kushal.OnTheMap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -520,7 +551,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 295L4L9PZE;
 				INFOPLIST_FILE = OnTheMap/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = xyz.kushal.OnTheMap;
 				PRODUCT_NAME = "$(TARGET_NAME)";

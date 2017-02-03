@@ -11,6 +11,7 @@ import UIKit
 class LoginController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var emailTextView: UITextField!
     @IBOutlet weak var passwordTextView: UITextField!
+    @IBOutlet weak var progressIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +22,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         subscribeToKeyboardNotifications()
+        progressIndicator.isHidden = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -29,7 +31,13 @@ class LoginController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func loginClicked(_ sender: UIButton) {
+        progressIndicator.isHidden = false
         doLoginIfCredentialsValid(sessionInfoListener: self)
     }
+    
+    @IBAction func signUpButton(_ sender: Any) {
+        UIApplication.shared.open(NSURL(string:"https://auth.udacity.com/sign-up") as! URL, options: [:], completionHandler: nil)
+    }
+    
 }
 

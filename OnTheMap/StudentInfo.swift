@@ -19,7 +19,6 @@ struct StudentInfo {
     var uniqueKey: String
     var updatedAt: String
     
-    
     init(json: [String: Any]) {
         self.createdAt = json["createdAt"] as? String ?? ""
         self.firstName = json["firstName"] as? String ?? ""

@@ -9,6 +9,6 @@
 import Foundation
 
 struct Session {
-    let id: String
-    let expiration: String
+    var id: String
+    var expiration: String
 }

@@ -13,8 +13,10 @@ class StudentInfoStore {
 
     private init() {}
     
+    var studentInfoList: [StudentInfo] = []
+    
     func getStudentInfo(studentInfoListener: StudentInfoListener){
-        let request = NSMutableURLRequest(url: URL(string: "https://parse.udacity.com/parse/classes/StudentLocation")!)
+        let request = NSMutableURLRequest(url: URL(string: "https://parse.udacity.com/parse/classes/StudentLocation?order=-updatedAt")!)
         request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
         request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
         let session = URLSession.shared
@@ -26,12 +28,19 @@ class StudentInfoStore {
             let response = response as! HTTPURLResponse
             let statusCode: Int = response.statusCode
             if statusCode >= 200 && statusCode <= 299 {
-                let range = Range(uncheckedBounds: (5, data!.count))
-                let newData = data?.subdata(in: range) /* subset response data! */
-                let json = try? JSONSerialization.jsonObject(with: newData!, options: [])
-                let studentInfo: StudentInfo = StudentInfo(json: json as! [String : Any])
+                let json = try? JSONSerialization.jsonObject(with: data!, options: []) as! [String: AnyObject]
+                guard let jsonObjectList = json?["results"] as? [[String: Any]] else{
+                    return
+                }
+                self.studentInfoList.removeAll()
+                for jsonObject in jsonObjectList {
+                    let studentInfo: StudentInfo = StudentInfo(json: jsonObject as [String : Any])
+                    if studentInfo.firstName != "" {
+                        self.studentInfoList.append(studentInfo)
+                    }
+                }
                 DispatchQueue.main.async {
-                    studentInfoListener.onSuccess(data: studentInfo)
+                    studentInfoListener.onSuccess(studentInfoList: self.studentInfoList)
                 }
             } else {
                 studentInfoListener.onNetworkFailure(error: "")

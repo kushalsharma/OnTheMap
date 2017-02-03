@@ -13,6 +13,8 @@ class SessionStore {
     
     private init() {}
     
+    var sessionInfo: SessionInfo? = nil
+    
     func makeSessionRequest(username: String, password: String, sessionInfoListener: SessionInfoListener) {
         let request = NSMutableURLRequest(url: URL(string: "https://www.udacity.com/api/session")!)
         request.httpMethod = "POST"
@@ -33,15 +35,40 @@ class SessionStore {
                 let range = Range(uncheckedBounds: (5, data!.count))
                 let newData = data?.subdata(in: range) /* subset response data! */
                 let json = try? JSONSerialization.jsonObject(with: newData!, options: [])
-                let sessionInfo: SessionInfo = SessionInfo(json: json as! [String : Any])!
+                self.sessionInfo = SessionInfo(json: json as! [String : Any])!
                 DispatchQueue.main.async {
-                    sessionInfoListener.onSuccess(data: sessionInfo)
+                    sessionInfoListener.onSuccess(data: self.sessionInfo!)
                 }
             } else {
                 DispatchQueue.main.async {
                     sessionInfoListener.onIncorrectCredentials()
                 }
             }
+        }
+        task.resume()
+    }
+    
+    func makeLogoutRequest(sessionInfoListener: SessionInfoListener){
+        let request = NSMutableURLRequest(url: URL(string: "https://www.udacity.com/api/session")!)
+        request.httpMethod = "DELETE"
+        var xsrfCookie: HTTPCookie? = nil
+        let sharedCookieStorage = HTTPCookieStorage.shared
+        for cookie in sharedCookieStorage.cookies! {
+            if cookie.name == "XSRF-TOKEN" { xsrfCookie = cookie }
+        }
+        if let xsrfCookie = xsrfCookie {
+            request.setValue(xsrfCookie.value, forHTTPHeaderField: "X-XSRF-TOKEN")
+        }
+        let session = URLSession.shared
+        let task = session.dataTask(with: request as URLRequest) { data, response, error in
+            if error != nil { // Handle error…
+                sessionInfoListener.onNetworkFailure(error: "")
+                return
+            }
+            let range = Range(uncheckedBounds: (5, data!.count))
+            let newData = data?.subdata(in: range) /* subset response data! */
+            print(NSString(data: newData!, encoding: String.Encoding.utf8.rawValue)!)
+            sessionInfoListener.onSuccess(data: SessionInfo(registered: false, key: "", id: "", expiration: ""))
         }
         task.resume()
     }
