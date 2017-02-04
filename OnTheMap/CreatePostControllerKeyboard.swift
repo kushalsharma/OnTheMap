@@ -11,7 +11,7 @@ import UIKit
 
 extension CreatePostController {
     func keyboardWillShow(_ notification:Notification) {
-        view.frame.origin.y = 0 - getKeyboardHeight(notification)/2
+        view.frame.origin.y =  -getKeyboardHeight(notification)/2
     }
     
     func subscribeToKeyboardNotifications() {

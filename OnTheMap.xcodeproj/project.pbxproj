@@ -35,6 +35,7 @@
 		47A739421E44F4A30029CAA1 /* UserInfoListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A739411E44F4A30029CAA1 /* UserInfoListener.swift */; };
 		47A739441E44F4E00029CAA1 /* SubmitUserInfoListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A739431E44F4E00029CAA1 /* SubmitUserInfoListener.swift */; };
 		47F884391E444643003E4B9C /* LocateOnMapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F884381E444643003E4B9C /* LocateOnMapController.swift */; };
+		47F88EE31E459341000B4B98 /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F88EE21E459341000B4B98 /* NetworkHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +90,7 @@
 		47A739411E44F4A30029CAA1 /* UserInfoListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoListener.swift; sourceTree = "<group>"; };
 		47A739431E44F4E00029CAA1 /* SubmitUserInfoListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmitUserInfoListener.swift; sourceTree = "<group>"; };
 		47F884381E444643003E4B9C /* LocateOnMapController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocateOnMapController.swift; sourceTree = "<group>"; };
+		47F88EE21E459341000B4B98 /* NetworkHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,6 +182,7 @@
 				4742CB931E40746B00C965D3 /* LoginControllerValidator.swift */,
 				4742CBA01E40D07D00C965D3 /* LoginControllerSessionInfo.swift */,
 				474932421E42FBBF0081FD7F /* CreatePostControllerKeyboard.swift */,
+				47F88EE21E459341000B4B98 /* NetworkHelper.swift */,
 			);
 			name = Extentions;
 			sourceTree = "<group>";
@@ -377,6 +380,7 @@
 				4742CBA91E40FD5F00C965D3 /* StudentInfoListener.swift in Sources */,
 				4742CBB01E41041E00C965D3 /* TableController.swift in Sources */,
 				4742CBA51E40FBB600C965D3 /* StudentInfoStore.swift in Sources */,
+				47F88EE31E459341000B4B98 /* NetworkHelper.swift in Sources */,
 				4742CBA71E40FCEE00C965D3 /* StudentInfo.swift in Sources */,
 				47A739441E44F4E00029CAA1 /* SubmitUserInfoListener.swift in Sources */,
 				474932431E42FBBF0081FD7F /* CreatePostControllerKeyboard.swift in Sources */,

@@ -40,7 +40,13 @@ class TableController: UIViewController, UITableViewDelegate, UITableViewDataSou
     // method to run when table view cell is tapped
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let index: Int = indexPath.row
-        UIApplication.shared.open(NSURL(string: StudentInfoStore.sharedInstace.studentInfoList[index].mediaURL) as! URL, options: [:], completionHandler: nil)
+        let url: String = StudentInfoStore.sharedInstace.studentInfoList[index].mediaURL
+        if(verifyUrl(urlString: url)) {
+            UIApplication.shared.open(NSURL(string: url) as! URL, options: [:], completionHandler: nil)
+        } else {
+            showAlert(title: "Bad Url", message: "Cannot open the link, something went wrong.", actionTitle: "Okay")
+        }
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func onSuccess(studentInfoList: [StudentInfo]) {
@@ -48,6 +54,26 @@ class TableController: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     func onNetworkFailure(error: Any) {
-        
+        showAlert(title: "Error",message: "Something went wrong", actionTitle: "Okay")
+    }
+    
+    func showAlert(title: String, message: String, actionTitle: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: actionTitle, style: .default) { action in
+            // perhaps use action.title here
+        })
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func verifyUrl (urlString: String?) -> Bool {
+        //Check for nil
+        if let urlString = urlString {
+            // create NSURL instance
+            if let url = NSURL(string: urlString) {
+                // check if your application can open the NSURL instance
+                return UIApplication.shared.canOpenURL(url as URL)
+            }
+        }
+        return false
     }
 }

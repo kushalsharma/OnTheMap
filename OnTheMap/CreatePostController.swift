@@ -39,8 +39,12 @@ class CreatePostController: UIViewController, UITextFieldDelegate, UserInfoListe
     
     @IBAction func findOnMapClicked(_ sender: UIButton) {
         if (userLocationTextView.text != "" || userLocationTextView.text != nil) {
-            present(alertView, animated: true, completion: nil)
-            SessionStore.sharedInstace.getUserData(userId: (SessionStore.sharedInstace.sessionInfo?.account.key)!, userInfoListener: self)
+            if(NetworkHelper.isInternetAvailable()) {
+                present(alertView, animated: true, completion: nil)
+                SessionStore.sharedInstace.getUserData(userId: (SessionStore.sharedInstace.sessionInfo?.account.key)!, userInfoListener: self)
+            } else {
+                showAlert(title: "Network Error",message: "Network not available", actionTitle: "Okay")
+            }
         }
     }
     

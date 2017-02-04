@@ -31,8 +31,12 @@ class LoginController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func loginClicked(_ sender: UIButton) {
-        progressIndicator.isHidden = false
-        doLoginIfCredentialsValid(sessionInfoListener: self)
+        if(NetworkHelper.isInternetAvailable()) {
+            progressIndicator.isHidden = false
+            doLoginIfCredentialsValid(sessionInfoListener: self)
+        } else {
+            showAlert(title: "Network Error",message: "Network not available", actionTitle: "Okay")
+        }
     }
     
     @IBAction func signUpButton(_ sender: Any) {

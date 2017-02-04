@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import MapKit
 
-class LocateOnMapController: UIViewController, MKMapViewDelegate, SubmitUserInfoListener {
+class LocateOnMapController: UIViewController, MKMapViewDelegate, SubmitUserInfoListener, UITextViewDelegate {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var submitClicked: UIButton!
@@ -28,6 +28,7 @@ class LocateOnMapController: UIViewController, MKMapViewDelegate, SubmitUserInfo
         mapView.delegate = self
         createGeoLocationFromAddress(enteredLocation!, mapView: mapView)
         alertView = getLoadingAlert()
+        textView.delegate = self
     }
     
     func createGeoLocationFromAddress(_ address: String, mapView: MKMapView) {
@@ -76,9 +77,13 @@ class LocateOnMapController: UIViewController, MKMapViewDelegate, SubmitUserInfo
     }
     
     @IBAction func submitButtonClicked(_ sender: Any) {
-        present(alertView, animated: true, completion: nil)
-        SessionStore.sharedInstace.submitUserInfo(submitUserInfoListener: self, key: (SessionStore.sharedInstace.sessionInfo?.account.key)!, firstName: firstName!, lastName: lastName!, mapString: enteredLocation!, mediaURL: textView.text, latitude: latitude!, longitude: longitude!)
-        
+        if(NetworkHelper.isInternetAvailable()) {
+            present(alertView, animated: true, completion: nil)
+            SessionStore.sharedInstace.submitUserInfo(submitUserInfoListener: self, key: (SessionStore.sharedInstace.sessionInfo?.account.key)!, firstName: firstName!, lastName: lastName!, mapString: enteredLocation!, mediaURL: textView.text, latitude: latitude!, longitude: longitude!)
+            
+        } else {
+            showAlert(title: "Network Error",message: "Network not available", actionTitle: "Okay")
+        }
     }
     
     func onSuccess() {
@@ -108,5 +113,13 @@ class LocateOnMapController: UIViewController, MKMapViewDelegate, SubmitUserInfo
         loadingIndicator.startAnimating();
         alert.view.addSubview(loadingIndicator)
         return alert
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if(text == "\n") {
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
     }
 }

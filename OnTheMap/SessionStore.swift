@@ -121,9 +121,16 @@ class SessionStore {
                 }
                 return
             }
-            print(NSString(data: data!, encoding: String.Encoding.utf8.rawValue)!)
-            DispatchQueue.main.async {
-                submitUserInfoListener.onSuccess()
+            let response = response as! HTTPURLResponse
+            let statusCode: Int = response.statusCode
+            if statusCode >= 200 && statusCode <= 299 {
+                DispatchQueue.main.async {
+                    submitUserInfoListener.onSuccess()
+                }
+            } else {
+                DispatchQueue.main.async {
+                    submitUserInfoListener.onError()
+                }
             }
         }
         task.resume()

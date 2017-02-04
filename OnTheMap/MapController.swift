@@ -20,8 +20,11 @@ class MapController: UIViewController, StudentInfoListener, MKMapViewDelegate, S
         mapView.showsUserLocation = true
         mapView.delegate = self
         mapView.setCenter(self.mapView.region.center, animated: true)
-        
-        StudentInfoStore.sharedInstace.getStudentInfo(studentInfoListener: self)
+        if(NetworkHelper.isInternetAvailable()) {
+           StudentInfoStore.sharedInstace.getStudentInfo(studentInfoListener: self)
+        } else {
+            showAlert(title: "Network Error",message: "Network not available", actionTitle: "Okay")
+        }
     }
     
     func onSuccess(studentInfoList: [StudentInfo]) {
