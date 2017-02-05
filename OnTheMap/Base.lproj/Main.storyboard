@@ -139,7 +139,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="73"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Npr-4y-RXk" id="Wdn-wd-V67">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="72"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="72.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Pin" translatesAutoresizingMaskIntoConstraints="NO" id="myz-3b-0ve">
@@ -178,9 +178,21 @@
                             <constraint firstItem="Rt3-Ek-u4s" firstAttribute="top" secondItem="Exp-Td-aRr" secondAttribute="top" id="qVA-70-GeP"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="List" id="Iai-1r-98P"/>
+                    <navigationItem key="navigationItem" title="List" id="Iai-1r-98P">
+                        <barButtonItem key="leftBarButtonItem" title="Logout" style="done" id="w6k-5I-sQg">
+                            <connections>
+                                <action selector="logoutButtonClicked:" destination="w52-ke-eFZ" id="jEA-Ok-MNV"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="Pin" id="oe5-5L-1OZ">
+                            <connections>
+                                <action selector="createNewPostClicked:" destination="w52-ke-eFZ" id="Oms-Vw-Nnf"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="myTableView" destination="Rt3-Ek-u4s" id="MMt-KQ-eNq"/>
+                        <segue destination="OJM-AX-50A" kind="show" identifier="createNewPost_" id="0ZS-0p-BLT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XIy-IK-pXT" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -213,7 +225,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Map" id="Hfx-xx-lHK">
                         <barButtonItem key="backBarButtonItem" title="Back" id="zIn-Fg-hyR"/>
-                        <barButtonItem key="leftBarButtonItem" title="Logout" id="e6W-7E-908">
+                        <barButtonItem key="leftBarButtonItem" title="Logout" style="done" id="e6W-7E-908">
                             <connections>
                                 <action selector="logoutButtonClicked:" destination="gZW-4W-bQP" id="fPh-lY-bwO"/>
                             </connections>
@@ -285,10 +297,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Create Post" id="YvB-55-CEn">
-                        <barButtonItem key="backBarButtonItem" title="Back" id="fyS-YC-Quf"/>
-                        <barButtonItem key="leftBarButtonItem" title="Back" id="DXI-RZ-dIJ">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="cancel" id="Woc-uP-2W0">
                             <connections>
-                                <action selector="backClicked:" destination="tDV-Ts-g7L" id="e1x-ui-wUk"/>
+                                <action selector="cancelButtonClicked:" destination="tDV-Ts-g7L" id="lNf-S1-CYS"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -360,7 +371,13 @@
                             <constraint firstItem="3iD-bQ-dNC" firstAttribute="trailing" secondItem="ftX-cL-DTa" secondAttribute="trailingMargin" id="yYX-jI-7XX"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Create Post" id="Amd-yk-igg"/>
+                    <navigationItem key="navigationItem" title="Create Post" id="Amd-yk-igg">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="cancel" id="s4y-iu-iCK">
+                            <connections>
+                                <action selector="cancelButtonClicked:" destination="onU-0X-eZF" id="QJs-kI-D1y"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="cnA-Nf-ovz" id="DHK-gx-vGL"/>
                         <outlet property="submitClicked" destination="3iD-bQ-dNC" id="5qh-tm-DIM"/>
@@ -452,4 +469,7 @@
         <image name="MapViewSelected" width="75" height="50"/>
         <image name="Pin" width="24" height="24"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="0ZS-0p-BLT"/>
+    </inferredMetricsTieBreakers>
 </document>

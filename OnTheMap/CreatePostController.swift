@@ -58,7 +58,8 @@ class CreatePostController: UIViewController, UITextFieldDelegate, UserInfoListe
             destVC.lastName = self.lastName
         }
     }
-    @IBAction func backClicked(_ sender: UIBarButtonItem) {
+    
+    @IBAction func cancelButtonClicked(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
     

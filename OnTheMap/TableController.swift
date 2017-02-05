@@ -8,13 +8,15 @@
 
 import UIKit
 
-class TableController: UIViewController, UITableViewDelegate, UITableViewDataSource, StudentInfoListener {
+class TableController: UIViewController, UITableViewDelegate, UITableViewDataSource, StudentInfoListener, SessionInfoListener {
     
     let cellReuseIdentifier = "tableCell"
     @IBOutlet weak var myTableView: UITableView!
+    var alertView: UIViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        alertView = getLoadingAlert()
         
         myTableView.delegate = self
         myTableView.dataSource = self
@@ -75,5 +77,32 @@ class TableController: UIViewController, UITableViewDelegate, UITableViewDataSou
             }
         }
         return false
+    }
+    @IBAction func logoutButtonClicked(_ sender: UIBarButtonItem) {
+        present(alertView, animated: true, completion: nil)
+        SessionStore.sharedInstace.makeLogoutRequest(sessionInfoListener: self)
+    }
+    @IBAction func createNewPostClicked(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: "createNewPost_", sender: self)
+    }
+    
+    func onSuccess(data: SessionInfo) {
+        alertView.dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func onIncorrectCredentials() {
+        // Nothing to do here
+    }
+    
+    func getLoadingAlert() -> UIViewController {
+        let alert = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .alert)
+        alert.view.tintColor = UIColor.black
+        let loadingIndicator: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50,height: 50)) as UIActivityIndicatorView
+        loadingIndicator.hidesWhenStopped = true
+        loadingIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+        loadingIndicator.startAnimating();
+        alert.view.addSubview(loadingIndicator)
+        return alert
     }
 }

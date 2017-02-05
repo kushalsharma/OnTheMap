@@ -26,8 +26,9 @@ class LocateOnMapController: UIViewController, MKMapViewDelegate, SubmitUserInfo
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
-        createGeoLocationFromAddress(enteredLocation!, mapView: mapView)
         alertView = getLoadingAlert()
+        present(alertView, animated: true, completion: nil)
+        createGeoLocationFromAddress(enteredLocation!, mapView: mapView)
         textView.delegate = self
     }
     
@@ -45,11 +46,13 @@ class LocateOnMapController: UIViewController, MKMapViewDelegate, SubmitUserInfo
                     annotation.subtitle = placemark.subLocality
                     mapView.addAnnotation(annotation)
                     mapView.showsPointsOfInterest = true
+                    self.alertView.dismiss(animated: true, completion: nil)
                     self.centerMapOnLocation(placemark.location!, mapView: mapView)
                 }
             } else {
                 // Handle error
-                self.showAlert(title: "Error",message: "Something went wrong", actionTitle: "Okay")
+                self.alertView.dismiss(animated: true, completion: nil)
+                self.showAlert(title: "Error",message: "Cannot find location", actionTitle: "Okay")
             }
         }
         
@@ -70,10 +73,6 @@ class LocateOnMapController: UIViewController, MKMapViewDelegate, SubmitUserInfo
         let regionRadius: CLLocationDistance = 1000
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius * 2.0, regionRadius * 2.0)
         mapView.setRegion(coordinateRegion, animated: true)
-    }
-    
-    @IBAction func cancelButtonClicked(_ sender: UIBarButtonItem) {
-        dismiss(animated: true, completion: nil)
     }
     
     @IBAction func submitButtonClicked(_ sender: Any) {
@@ -121,5 +120,9 @@ class LocateOnMapController: UIViewController, MKMapViewDelegate, SubmitUserInfo
             return false
         }
         return true
+    }
+    
+    @IBAction func cancelButtonClicked(_ sender: UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
     }
 }
